@@ -1,9 +1,6 @@
 package sia.tacos.web.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +10,11 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.annotation.DirtiesContext;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@DirtiesContext
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HomePageBrowserTest {
 
@@ -24,6 +25,7 @@ public class HomePageBrowserTest {
 	@BeforeAll
 	public static void setup() {
 		browser = new HtmlUnitDriver();
+
 		browser.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 
