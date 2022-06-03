@@ -1,13 +1,11 @@
 package sia.tacos.domain.repository;
 
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
 import sia.tacos.domain.model.Ingredient;
 
-public interface IngredientRepository {
-
-	Iterable<Ingredient> findAll();
-	
-	Ingredient findOne(String id);
-	
-	Ingredient save(Ingredient ingredient);
+@Repository
+public interface IngredientRepository extends CrudRepository<Ingredient, String>{
 	
 }
