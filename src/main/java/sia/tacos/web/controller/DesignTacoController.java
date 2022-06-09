@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,6 +21,7 @@ import sia.tacos.domain.model.Ingredient;
 import sia.tacos.domain.model.Ingredient.Type;
 import sia.tacos.domain.model.Order;
 import sia.tacos.domain.model.Taco;
+import sia.tacos.domain.model.User;
 import sia.tacos.domain.repository.IngredientRepository;
 import sia.tacos.domain.repository.TacoRepository;
 
@@ -41,8 +43,14 @@ public class DesignTacoController {
 	}
 
 	@ModelAttribute("order")
-	public Order order() {
-		return new Order();
+	public Order order(@AuthenticationPrincipal User user) {
+		Order order = new Order();
+		order.setDeliveryState(user.getState());
+		order.setDeliveryCity(user.getCity());
+		order.setDeliveryStreet(user.getStreet());
+		order.setDeliveryName(user.getFullname());
+		order.setDeliveryZip(user.getZip());
+		return order;
 	}
 
 	@ModelAttribute("taco")
